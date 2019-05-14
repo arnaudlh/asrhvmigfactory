@@ -25,6 +25,7 @@ Function ProcessItemImpl($processor, $csvItem, $reportItem) {
    # $sourceProcessServer = $csvItem.PROCESS_SERVER
    # $sourceConfigurationServer = $csvItem.CONFIGURATION_SERVER
     $sourceVMMServer = $csvItem.VMM_SERVER
+    $sourceVMMCloud = $csvItem.VMM_CLOUD
     $targetPostFailoverResourceGroup = $csvItem.TARGET_RESOURCE_GROUP
     $targetPostFailoverStorageAccountName = $csvItem.TARGET_STORAGE_ACCOUNT
     $targetPostFailoverLogStorageAccountName = $csvItem.TARGET_LOGSTORAGE_ACCOUNT 
@@ -88,7 +89,7 @@ Function ProcessItemImpl($processor, $csvItem, $reportItem) {
             -RecoveryAzureStorageAccountId $targetPostFailoverStorageAccount.Id `
 	        -LogStorageAccountId $targetPostFailoverLogStorageAccount.Id `
  #          -ProcessServer $sourceProcessServerObj `
-            -Account $sourceAccountObj `
+ #          -Account $sourceAccountObj `
             -RecoveryResourceGroupId $targetResourceGroupObj.ResourceId `
             -RecoveryAzureNetworkId $targetVnetObj.Id `
             -RecoveryAzureSubnetName $targetPostFailoverSubnet `

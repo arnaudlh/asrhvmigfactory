@@ -22,7 +22,7 @@ class AsrCommon
     [psobject] GetFabricServer($sourceVMMServer)
     {
         $this.Logger.LogTrace("Getting fabric server for VMM'$($sourceVMMServer)'")
-        $fabricServer = Get-AzRecoveryServicesAsrFabric -Name $sourceVMMServer
+        $fabricServer = Get-AzRecoveryServicesAsrFabric -FriendlyName $sourceVMMServer
         return $fabricServer
     }
 

@@ -19,10 +19,10 @@ class AsrCommon
         return $targetVault
     }
 
-    [psobject] GetFabricServer($sourceConfigurationServer)
+    [psobject] GetFabricServer($sourceVMMServer)
     {
-        $this.Logger.LogTrace("Getting fabric server for VMM'$($sourceConfigurationServer)'")
-        $fabricServer = Get-AzRecoveryServicesAsrFabric -Name $sourceConfigurationServer
+        $this.Logger.LogTrace("Getting fabric server for VMM'$($sourceVMMServer)'")
+        $fabricServer = Get-AzRecoveryServicesAsrFabric -Name $sourceVMMServer
         return $fabricServer
     }
 

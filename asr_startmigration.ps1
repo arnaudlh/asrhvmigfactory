@@ -24,6 +24,7 @@ Function ProcessItemImpl($processor, $csvItem, $reportItem) {
     $sourceAccountName = $csvItem.ACCOUNT_NAME
    # $sourceProcessServer = $csvItem.PROCESS_SERVER
    # $sourceConfigurationServer = $csvItem.CONFIGURATION_SERVER
+    $sourceVMMServer = $csvItem.VMM_SERVER
     $targetPostFailoverResourceGroup = $csvItem.TARGET_RESOURCE_GROUP
     $targetPostFailoverStorageAccountName = $csvItem.TARGET_STORAGE_ACCOUNT
     $targetPostFailoverLogStorageAccountName = $csvItem.TARGET_LOGSTORAGE_ACCOUNT 
@@ -39,7 +40,7 @@ Function ProcessItemImpl($processor, $csvItem, $reportItem) {
     #Get the vault context
     $vaultServer = $asrCommon.GetAndEnsureVaultContext($vaultName)
     #Get the context for VMM Server 
-    $fabricServer = $asrCommon.GetFabricServer($sourceConfigurationServer)
+    $fabricServer = $asrCommon.GetFabricServer($sourceVMMServer)
     #Get the ASR policies configured for VMM Server
     $protectionContainer = $asrCommon.GetProtectionContainer($fabricServer)
     #Get the protection settings 

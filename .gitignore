@@ -4,3 +4,4 @@
 .vs/
 !input_template.csv
 !samplecsv.csv
+.DS_Store

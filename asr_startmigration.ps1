@@ -22,11 +22,10 @@ Function ProcessItemImpl($processor, $csvItem, $reportItem) {
     
     $vaultName = $csvItem.VAULT_NAME
     $sourceAccountName = $csvItem.ACCOUNT_NAME
-   # $sourceProcessServer = $csvItem.PROCESS_SERVER
-   # $sourceConfigurationServer = $csvItem.CONFIGURATION_SERVER
     $sourceVMMServer = $csvItem.VMM_SERVER
     $sourceVMMCloud = $csvItem.VMM_CLOUD
     $targetPostFailoverResourceGroup = $csvItem.TARGET_RESOURCE_GROUP
+    $targetMachineOS = $csvItem.OS
     $targetPostFailoverStorageAccountName = $csvItem.TARGET_STORAGE_ACCOUNT
     $targetPostFailoverLogStorageAccountName = $csvItem.TARGET_LOGSTORAGE_ACCOUNT 
     $targetPostFailoverVNET = $csvItem.TARGET_VNET
@@ -71,29 +70,23 @@ Function ProcessItemImpl($processor, $csvItem, $reportItem) {
             $processor.Logger.LogErrorAndThrow("Policy map '$($replicationPolicy)' was not found")
         }
 
- #       $sourceProcessServerObj = $fabricServer.FabricSpecificDetails.ProcessServers | Where-Object { $_.FriendlyName -eq $sourceProcessServer }
- #       if ($sourceProcessServerObj -eq $null) {
- #           $processor.Logger.LogErrorAndThrow("Process server with name '$($sourceProcessServer)' was not found")
- #       }
- #       $sourceAccountObj = $fabricServer.FabricSpecificDetails.RunAsAccounts | Where-Object { $_.AccountName -eq $sourceAccountName }
- #       if ($sourceAccountObj -eq $null) {
- #           $processor.Logger.LogErrorAndThrow("Account name '$($sourceAccountName)' was not found")
- #       }
-
         $processor.Logger.LogTrace( "Starting replication Job for source '$($sourceMachineName)'")
+
         $replicationJob = New-AzRecoveryServicesAsrReplicationProtectedItem `
-            -HyperVtoAzure `
-            -ProtectableItem $protectableVM `
-            -Name (New-Guid).Guid `
-            -ProtectionContainerMapping $targetPolicyMap `
-            -RecoveryAzureStorageAccountId $targetPostFailoverStorageAccount.Id `
-	        -LogStorageAccountId $targetPostFailoverLogStorageAccount.Id `
- #          -ProcessServer $sourceProcessServerObj `
- #          -Account $sourceAccountObj `
-            -RecoveryResourceGroupId $targetResourceGroupObj.ResourceId `
-            -RecoveryAzureNetworkId $targetVnetObj.Id `
-            -RecoveryAzureSubnetName $targetPostFailoverSubnet `
- #          -RecoveryVmName $targetMachineName
+           -HyperVtoAzure `
+           -ProtectableItem $protectableVM `
+           -Name (New-Guid).Guid `
+           -ProtectionContainerMapping $targetPolicyMap `
+           -RecoveryAzureStorageAccountId $targetPostFailoverStorageAccount.Id `
+           -LogStorageAccountId $targetPostFailoverLogStorageAccount.Id `
+           -RecoveryResourceGroupId $targetResourceGroupObj.ResourceId `
+           -OS $targetMachineOS `
+           -OSDiskName "OSDisk" 
+
+ #         -RecoveryAzureNetworkId $targetVnetObj.Id `
+ #         -RecoveryAzureSubnetName $targetPostFailoverSubnet `
+ #         -RecoveryVmName $targetMachineName `
+
 
         $replicationJobObj = Get-AzRecoveryServicesAsrJob -Name $replicationJob.Name
         while ($replicationJobObj.State -eq 'NotStarted') {

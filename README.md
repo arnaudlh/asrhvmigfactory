@@ -1,6 +1,6 @@
-# Scale migration of VMs using Azure Site Recovery
+# Scale migration of VMs using Azure Site Recovery for Hyper-V VMM 
 
-These scripts help you automate the migration of large number of VMs to Azure using Azure Site Recovery (ASR). These scripts can be used to migrate VMware, AWS, GCP VMs and physical servers to Azure. You can also use these scripts to migrate Hyper-V VMs if you migrate the VMs as physical servers. The scripts leverage ASR PowerShell documented [here](https://docs.microsoft.com/azure/site-recovery/vmware-azure-disaster-recovery-powershell).
+These scripts help you automate the migration of large number of VMs to Azure using Azure Site Recovery (ASR). These scripts can be used to migrate Hyper-V VM to Azure.
 
 ## Current Limitations:
 - Supports specifying the static IP address only for the primary NIC of the target VM

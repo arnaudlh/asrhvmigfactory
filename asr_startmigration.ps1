@@ -36,10 +36,14 @@ Function ProcessItemImpl($processor, $csvItem, $reportItem) {
     $targetLogStorageAccountRG = $csvItem.TARGET_LOGSTORAGE_ACCOUNT_RG
     $targetVNETRG = $csvItem.TARGET_VNET_RG
 
-   # $vaultServer = $asrCommon.GetAndEnsureVaultContext($vaultName)
-   # $fabricServer = $asrCommon.GetFabricServer($sourceConfigurationServer)
-   # $protectionContainer = $asrCommon.GetProtectionContainer($fabricServer)
-   # $protectableVM = $asrCommon.GetProtectableItem($protectionContainer, $sourceMachineName)
+    #Get the vault context
+    $vaultServer = $asrCommon.GetAndEnsureVaultContext($vaultName)
+    #Get the context for VMM Server 
+    $fabricServer = $asrCommon.GetFabricServer($sourceConfigurationServer)
+    #Get the ASR policies configured for VMM Server
+    $protectionContainer = $asrCommon.GetProtectionContainer($fabricServer)
+    #Get the protection settings 
+    $protectableVM = $asrCommon.GetProtectableItem($protectionContainer, $sourceMachineName)
 
     $processor.Logger.LogTrace("ProtectableStatus: '$($protectableVM.ProtectionStatus)'")
     $reportItem.ProtectableStatus = $protectableVM.ProtectionStatus
@@ -65,14 +69,14 @@ Function ProcessItemImpl($processor, $csvItem, $reportItem) {
             $processor.Logger.LogErrorAndThrow("Policy map '$($replicationPolicy)' was not found")
         }
 
-        $sourceProcessServerObj = $fabricServer.FabricSpecificDetails.ProcessServers | Where-Object { $_.FriendlyName -eq $sourceProcessServer }
-        if ($sourceProcessServerObj -eq $null) {
-            $processor.Logger.LogErrorAndThrow("Process server with name '$($sourceProcessServer)' was not found")
-        }
-        $sourceAccountObj = $fabricServer.FabricSpecificDetails.RunAsAccounts | Where-Object { $_.AccountName -eq $sourceAccountName }
-        if ($sourceAccountObj -eq $null) {
-            $processor.Logger.LogErrorAndThrow("Account name '$($sourceAccountName)' was not found")
-        }
+ #       $sourceProcessServerObj = $fabricServer.FabricSpecificDetails.ProcessServers | Where-Object { $_.FriendlyName -eq $sourceProcessServer }
+ #       if ($sourceProcessServerObj -eq $null) {
+ #           $processor.Logger.LogErrorAndThrow("Process server with name '$($sourceProcessServer)' was not found")
+ #       }
+ #       $sourceAccountObj = $fabricServer.FabricSpecificDetails.RunAsAccounts | Where-Object { $_.AccountName -eq $sourceAccountName }
+ #       if ($sourceAccountObj -eq $null) {
+ #           $processor.Logger.LogErrorAndThrow("Account name '$($sourceAccountName)' was not found")
+ #       }
 
         $processor.Logger.LogTrace( "Starting replication Job for source '$($sourceMachineName)'")
         $replicationJob = New-AzRecoveryServicesAsrReplicationProtectedItem `

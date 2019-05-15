@@ -51,10 +51,10 @@ class AsrCommon
         return $protectedItem
     }
 
-    [psobject] GetProtectedItemFromVault($vaultName, $sourceMachineName, $sourceConfigurationServer) {
+    [psobject] GetProtectedItemFromVault($vaultName, $sourceMachineName, $sourceVMMServer) {
 
         $vaultServer = $this.GetAndEnsureVaultContext($vaultName)
-        $fabricServer = $this.GetFabricServer($sourceConfigurationServer)
+        $fabricServer = $this.GetFabricServer($sourceVMMServer)
         $protectionContainer = $this.GetProtectionContainer($fabricServer)
         $protectableVM = $this.GetProtectableItem($protectionContainer, $sourceMachineName)
     

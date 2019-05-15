@@ -22,12 +22,12 @@ Function ProcessItemImpl($processor, $csvItem, $reportItem) {
     $vaultName = $csvItem.VAULT_NAME
     $sourceAccountName = $csvItem.ACCOUNT_NAME
     $sourceMachineName = $csvItem.SOURCE_MACHINE_NAME
-    $sourceConfigurationServer = $csvItem.CONFIGURATION_SERVER
+    $sourceVMMServer = $csvItem.VMM_SERVER
     $targetTestFailoverVNET = $csvItem.TESTFAILOVER_VNET
     $targetVNETRG = $csvItem.TARGET_VNET_RG
 
 
-    $protectedItem = $asrCommon.GetProtectedItemFromVault($vaultName, $sourceMachineName, $sourceConfigurationServer)
+    $protectedItem = $asrCommon.GetProtectedItemFromVault($vaultName, $sourceMachineName, $sourceVMMServer)
     if ($protectedItem -ne $null) {
         if ($protectedItem.AllowedOperations.Contains('TestFailover')) {
             $processor.Logger.LogTrace("Starting TestFailover operation for item '$($sourceMachineName)'")

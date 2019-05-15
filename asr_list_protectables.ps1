@@ -4,7 +4,7 @@ Param(
     [parameter(Mandatory=$true)]
     $VaultName,
     [parameter(Mandatory=$true)]
-    $ConfigurationServer,
+    $sourceVMMServer,
     [parameter(Mandatory=$true)]
     $CsvOutput
 )
@@ -36,7 +36,7 @@ if ($targetVault -eq $null)
 
 Set-AzRecoveryServicesAsrVaultContext -Vault $targetVault
 $fabricServer = Get-AzRecoveryServicesAsrFabric `
-    -FriendlyName $ConfigurationServer
+    -FriendlyName $sourceVMMServer
 $protectionContainer = Get-AzRecoveryServicesAsrProtectionContainer `
     -Fabric $fabricServer
     

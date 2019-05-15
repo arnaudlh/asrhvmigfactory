@@ -19,9 +19,9 @@ Function ProcessItemImpl($processor, $csvItem, $reportItem) {
     
     $vaultName = $csvItem.VAULT_NAME
     $sourceMachineName = $csvItem.SOURCE_MACHINE_NAME
-    $sourceConfigurationServer = $csvItem.CONFIGURATION_SERVER
+    $sourceVMMServer = $csvItem.VMM_SERVER
 
-    $protectedItem = $asrCommon.GetProtectedItemFromVault($vaultName, $sourceMachineName, $sourceConfigurationServer)
+    $protectedItem = $asrCommon.GetProtectedItemFromVault($vaultName, $sourceMachineName, $sourceVMMServer)
     if ($protectedItem -ne $null) {
         if ($protectedItem.AllowedOperations.Contains('UnplannedFailover')) {
             $processor.Logger.LogTrace("Starting UnplannedFailover operation for item '$($sourceMachineName)'")

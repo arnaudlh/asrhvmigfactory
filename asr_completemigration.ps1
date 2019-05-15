@@ -20,10 +20,11 @@ Function ProcessItemImpl($processor, $csvItem, $reportItem) {
     $reportItem | Add-Member NoteProperty "DisableReplicationJobId" $null
 
     $vaultName = $csvItem.VAULT_NAME
-    $sourceConfigurationServer = $csvItem.CONFIGURATION_SERVER
+    $sourceVMMServer = $csvItem.VMM_SERVER
+    
     $sourceMachineName = $csvItem.SOURCE_MACHINE_NAME
 
-    $protectedItem = $asrCommon.GetProtectedItemFromVault($vaultName, $sourceMachineName, $sourceConfigurationServer)
+    $protectedItem = $asrCommon.GetProtectedItemFromVault($vaultName, $sourceMachineName, $sourceVMMServer)
     if ($protectedItem -ne $null) {
         if ($protectedItem.AllowedOperations.Contains('Commit')) {
             #Start the failover operation

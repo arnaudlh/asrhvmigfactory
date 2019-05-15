@@ -39,7 +39,7 @@ Function ProcessItemImpl($processor, $csvItem, $reportItem) {
     
     $vaultName = $csvItem.VAULT_NAME
     $sourceMachineName = $csvItem.SOURCE_MACHINE_NAME
-    $sourceConfigurationServer = $csvItem.CONFIGURATION_SERVER
+    $sourceVMMServer = $csvItem.VMM_SERVER
     $targetPostFailoverResourceGroup = $csvItem.TARGET_RESOURCE_GROUP
     $targetPostFailoverStorageAccountName = $csvItem.TARGET_STORAGE_ACCOUNT
     $targetPostFailoverVNET = $csvItem.TARGET_VNET
@@ -51,7 +51,7 @@ Function ProcessItemImpl($processor, $csvItem, $reportItem) {
     $targetMachineName = $csvItem.TARGET_MACHINE_NAME
 
     $vaultServer = $asrCommon.GetAndEnsureVaultContext($vaultName)
-    $fabricServer = $asrCommon.GetFabricServer($sourceConfigurationServer)
+    $fabricServer = $asrCommon.GetFabricServer($sourceVMMServer)
     $reportItem.SourceConfigurationServerCheck = "DONE"
 
     $protectionContainer = $asrCommon.GetProtectionContainer($fabricServer)

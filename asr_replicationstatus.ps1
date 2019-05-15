@@ -21,10 +21,10 @@ Function ProcessItemImpl($processor, $csvItem, $reportItem) {
     
     $vaultName = $csvItem.VAULT_NAME
     $sourceMachineName = $csvItem.SOURCE_MACHINE_NAME
-    $sourceConfigurationServer = $csvItem.CONFIGURATION_SERVER
-
+    $sourceVMMServer = $csvItem.VMM_SERVER
+    
     $vaultServer = $asrCommon.GetAndEnsureVaultContext($vaultName)
-    $fabricServer = $asrCommon.GetFabricServer($sourceConfigurationServer)
+    $fabricServer = $asrCommon.GetFabricServer($sourceVMMServer)
     $protectionContainer = $asrCommon.GetProtectionContainer($fabricServer)
     $protectableVM = $asrCommon.GetProtectableItem($protectionContainer, $sourceMachineName)
 

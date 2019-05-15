@@ -81,12 +81,10 @@ Function ProcessItemImpl($processor, $csvItem, $reportItem) {
            -LogStorageAccountId $targetPostFailoverLogStorageAccount.Id `
            -RecoveryResourceGroupId $targetResourceGroupObj.ResourceId `
            -OS $targetMachineOS `
+           -RecoveryAzureNetworkId $targetVnetObj.Id `
+           -RecoveryAzureSubnetName $targetPostFailoverSubnet `
+           -RecoveryVmName $targetMachineName `
            -OSDiskName "OSDisk" 
-
- #         -RecoveryAzureNetworkId $targetVnetObj.Id `
- #         -RecoveryAzureSubnetName $targetPostFailoverSubnet `
- #         -RecoveryVmName $targetMachineName `
-
 
         $replicationJobObj = Get-AzRecoveryServicesAsrJob -Name $replicationJob.Name
         while ($replicationJobObj.State -eq 'NotStarted') {

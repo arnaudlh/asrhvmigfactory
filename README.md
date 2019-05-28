@@ -1,4 +1,4 @@
-# Scale migration of VMs using Azure Site Recovery for Hyper-V VMM 
+# Scale migration of VMs using Azure Site Recovery for Hyper-V and System Center Virtual Machine Manager 
 
 These scripts help you automate the migration of large number of VMs to Azure using Azure Site Recovery (ASR). These scripts can be used to migrate Hyper-V VM to Azure.
 
@@ -11,9 +11,8 @@ These scripts help you automate the migration of large number of VMs to Azure us
 ### Pre-requisites
 Before you get started, you need to do the following:
 - Ensure that the Site Recovery vault is created in your Azure subscription
-- Ensure that the Configuration Server and Process Server are installed in the source environment and the vault is able to discover the environment
-- Ensure that a Replication Policy is created and associated with the Configuration Server
-- Ensure that you have added the VM admin account to the config server (that will be used to replicate the on-prem VMs)
+- Ensure that the VMM provider and Hyper-V Azure Site Recovery providers are installed in the source environment and the vault is registered able to discover the environment
+- Ensure that a Replication Policy is created and associated with the SC VMM Server
 - Ensure that the target artefacts in Azure are created
     - Target Resource Group
     - Target Storage Account (and its Resource Group) - Create a premium storage account if you plan to migrate to premium disks

@@ -24,8 +24,7 @@ Function ProcessItemImpl($processor, $csvItem, $reportItem) {
     $sourceMachineName = $csvItem.SOURCE_MACHINE_NAME
     $sourceVMMServer = $csvItem.VMM_SERVER
     $targetTestFailoverVNET = $csvItem.TESTFAILOVER_VNET
-    $targetVNETRG = $csvItem.TARGET_VNET_RG
-
+    $targetTestFailoverRG = $csvItem.TESTFAILOVER_RESOURCE_GROUP
 
     $protectedItem = $asrCommon.GetProtectedItemFromVault($vaultName, $sourceMachineName, $sourceVMMServer)
     if ($protectedItem -ne $null) {
@@ -34,7 +33,7 @@ Function ProcessItemImpl($processor, $csvItem, $reportItem) {
             #Get details of the test failover virtual network to be used
             $targetTestFailoverVNETObj = Get-AzVirtualNetwork `
                 -Name $targetTestFailoverVNET `
-                -ResourceGroupName $targetVNETRG 
+                -ResourceGroupName $targetTestFailoverRG 
 
             #Start the test failover operation
             $testFailoverJob = Start-AzRecoveryServicesAsrTestFailoverJob `

@@ -16,8 +16,6 @@ if ($PSScriptRoot -eq "") {
 
 Function ProcessItemImpl($processor, $csvItem, $reportItem) {
     $reportItem | Add-Member NoteProperty "imagecreatejob" $null
-    $reportItem | Add-Member NoteProperty "TestFailoverState" $null
-    $reportItem | Add-Member NoteProperty "TestFailoverStateDescription" $null
 
     $vaultName = $csvItem.VAULT_NAME
     $sourceMachineName = $csvItem.SOURCE_MACHINE_NAME
